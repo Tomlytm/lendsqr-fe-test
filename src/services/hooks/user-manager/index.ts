@@ -2,6 +2,13 @@ import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { apiRoutes } from "../../api/api-routes.ts";
 import api from "../../api/index.ts";
 
+interface Stats {
+    totalUsers: number;
+    activeUsers: number;
+    loanUsers: number;
+    savingsUsers: number;
+}
+
 interface User {
   id: number;
   personalInformation: {
@@ -53,16 +60,16 @@ interface User {
 
 
 
-const useGetUsers = (companyId: string) => {
+const useGetUsers = () => {
   const {
     data: usersData,
     isLoading,
     isError,
     refetch,
   }: UseQueryResult<User[]> = useQuery({
-    queryKey: ["getUsers", companyId],
+    queryKey: ["getUsers"],
     queryFn: async (): Promise<User[]> => {
-      const url = `${apiRoutes.users.getUsers(companyId)}`;
+      const url = `${apiRoutes.users.getUsers}`;
       return await api.get<User[]>({ url, auth: true });
     },
   });
@@ -75,4 +82,28 @@ const useGetUsers = (companyId: string) => {
   };
 };
 
-export { useGetUsers };
+const useGetStats = () => {
+  const {
+    data: stats,
+    isLoading,
+    isError,
+    refetch,
+  }: UseQueryResult<Stats> = useQuery({
+    queryKey: ["getUserStats"],
+    queryFn: async (): Promise<Stats> => {
+      const url = `${apiRoutes.users.getStats}`;
+     const response = await api.get<Stats>({ url, auth: true });
+console.log(response)
+     return response
+    },
+  });
+
+  return { 
+    stats, 
+    loadingStats: isLoading, 
+    statsError: isError, 
+    refetch 
+  };
+};
+
+export { useGetUsers, useGetStats };
