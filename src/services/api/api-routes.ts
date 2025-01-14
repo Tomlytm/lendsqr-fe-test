@@ -1,13 +1,10 @@
 const BASE_URL = "v3";
 
 const createRoute = (path: string) => `${BASE_URL}${path}`;
-const createDynamicRoute = (path: string) => (id: string | string[]) =>
-  `${BASE_URL}${path.replace(":id", id.toString())}`;
 
 export const apiRoutes = {
-  
   users: {
-    getDetails: createRoute("/users"),
-    getUsers: createDynamicRoute("/:id"),
+    getStats: createRoute("/714f087e-a917-4771-aa50-6746cfac0e5c"),
+    getUsers: createRoute("/2acd43e6-bf0c-49c7-b8fa-1a0e0ce7f321"),
   },
 };

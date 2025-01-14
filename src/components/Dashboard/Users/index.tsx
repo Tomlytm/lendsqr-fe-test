@@ -3,7 +3,7 @@ import "./User.scss";
 import { Popover, OverlayTrigger, CloseButton } from "react-bootstrap";
 import FilterForm from "../../Filter/FilterForm.tsx";
 import { ActionMenu, ActivateUser, ActiveUsers, BlacklistUser, Filter, LoanUsers, Next, Previous, SavingsUsers, Users, ViewUser } from "../DashboardIcons.tsx";
-import { useGetUsers } from "../../../services/hooks/user-manager/index.ts";
+import { useGetStats, useGetUsers } from "../../../services/hooks/user-manager/index.ts";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from 'react-router-dom';
 import { saveLocalStorage } from "../../../services/helper.ts";
@@ -42,7 +42,8 @@ const UsersDashboard: React.FC = () => {
   const [pageNumber, setPageNumber] = useState(0);
   const usersPerPage = 10;
 
-  const { usersData, loadingUsers, usersError } = useGetUsers("2acd43e6-bf0c-49c7-b8fa-1a0e0ce7f321");
+  const { usersData, loadingUsers, usersError } = useGetUsers();
+  const { stats, loadingStats} = useGetStats();
   const handleReset = () => {
     if (usersData) {
       setFilters({
@@ -103,29 +104,33 @@ const UsersDashboard: React.FC = () => {
   return (
     <div className="users-dashboard">
       <h3>Users</h3>
-      <div className="cards">
-        <div className="card">
-          <Users />
-          <h3>USERS</h3>
-          <p>2,453</p>
-        </div>
-        <div className="card">
-          <ActiveUsers />
-          <h3>ACTIVE USERS</h3>
-          <p>2,453</p>
-        </div>
-        <div className="card">
-          <LoanUsers />
-          <h3>USERS WITH LOANS</h3>
-          <p>12,453</p>
+      {
+        loadingStats ? <span>Loading stats...</span> : (
+          <div className="cards">
+            <div className="card">
+              <Users />
+              <h3>USERS</h3>
+              <p>{stats?.totalUsers}</p>
+            </div>
+            <div className="card">
+              <ActiveUsers />
+              <h3>ACTIVE USERS</h3>
+              <p>{stats?.activeUsers}</p>
+            </div>
+            <div className="card">
+              <LoanUsers />
+              <h3>USERS WITH LOANS</h3>
+              <p>{stats?.loanUsers}</p>
 
-        </div>
-        <div className="card">
-          <SavingsUsers />
-          <h3>USERS WITH SAVINGS</h3>
-          <p>102,453</p>
-        </div>
-      </div>
+            </div>
+            <div className="card">
+              <SavingsUsers />
+              <h3>USERS WITH SAVINGS</h3>
+              <p>{stats?.savingsUsers}</p>
+            </div>
+          </div>
+        )
+      }
 
       {/* Table */}
       <div className="table-container">
