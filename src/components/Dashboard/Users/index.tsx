@@ -79,7 +79,6 @@ const UsersDashboard: React.FC = () => {
     setFilters(newFilters);
   };
 
-  // Pagination logic
   const indexOfLastUser = (pageNumber + 1) * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
@@ -103,13 +102,12 @@ const UsersDashboard: React.FC = () => {
 
   return (
     <div className="users-dashboard">
-      {/* Top Cards */}
       <h3>Users</h3>
       <div className="cards">
         <div className="card">
           <Users />
           <h3>USERS</h3>
-          <p>{usersData?.length}</p>
+          <p>2,453</p>
         </div>
         <div className="card">
           <ActiveUsers />

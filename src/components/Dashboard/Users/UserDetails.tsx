@@ -50,8 +50,6 @@ const UserDetails: React.FC = () => {
                             <div className="user-card__avata"><Avatar />
                             </div>
                             <div>
-
-
                                 <div className="user-card__details">
                                     <div className="user-card__personal">
                                         <h2>{user.personalInformation.fullName}</h2>
