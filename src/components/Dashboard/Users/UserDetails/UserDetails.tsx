@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import './User.scss';
+import '../User.scss';
 import StarRatings from 'react-star-ratings';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { getLocalStorage } from '../../../services/helper.ts';
-import { User } from '../../../types/user.ts';
-import { Avatar, Back } from '../DashboardIcons.tsx'
+import { getLocalStorage } from '../../../../services/helper.ts';
+import { User } from '../../../../types/user.ts';
+import { Avatar, Back } from '../../DashboardIcons.tsx'
 const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-NG', {
         style: 'currency',
