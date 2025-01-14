@@ -1,0 +1,227 @@
+.login-container {
+  display: flex;
+  height: 100vh;
+  flex-wrap: wrap;
+  .logo-small {
+    display: none;
+  }
+  .login-left {
+    flex: 1;
+    background-color: #fdfdfd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+
+    .logo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding: 40px;
+      // width: 250px;
+      // margin: 20px 0;
+      align-self: flex-start;
+      margin-left: 40px;
+    }
+
+    .illustration {
+      max-width: 90%;
+      height: auto;
+      margin-top: 70px;
+      align-self: center;
+    }
+  }
+
+  .login-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 50px;
+
+    h1 {
+      font-size: 40px;
+      font-family: "Avenir Next Bold", sans-serif;
+      color: #213f7d;
+      // margin-bottom: -5px;
+    }
+
+    p {
+      font-size: 18px;
+      color: #545f7d;
+      margin-bottom: 55px;
+      font-weight: 400;
+    }
+
+    form {
+      width: 100%;
+      max-width: 400px;
+
+      .form-group {
+        margin-bottom: 20px;
+
+        input {
+          padding: 10px;
+          font-size: 1rem;
+          border: none;
+          width: 100%;
+          background: transparent;
+        }
+        input:focus {
+          outline: none;
+        }
+        input::placeholder {
+          color: rgb(178 180 196);
+          font-family: "Avenir Next Regular", sans-serif;
+          font-size: 14px;
+        }
+      }
+
+      .password-wrapper {
+        position: relative;
+        border: 2px solid #545f7d26;
+        border-radius: 5px;
+        .show-password {
+          font-family: sans-serif;
+          background: none;
+          border: none;
+          color: #39cdcc;
+          cursor: pointer;
+          font-size: 10px;
+          position: absolute;
+          top: 0;
+          right: 0;
+          padding: 12px;
+          font-weight: 500;
+          letter-spacing: 1px;
+        }
+      }
+
+      .forgot-password {
+        display: block;
+        font-weight: 600;
+        font-size: 0.65rem;
+        letter-spacing: 1.2px;
+        color: #39cdcc;
+        text-decoration: none;
+        margin-bottom: 30px;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .login-button {
+        width: 100%;
+        padding: 12px;
+        background-color: #39cdcc;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        letter-spacing: 1.3px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: #2bb3b8;
+        }
+      }
+    }
+  }
+
+  // Media queries for responsiveness
+  @media (max-width: 768px) {
+    .login-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      padding: 20px;
+      width: 100%;
+    }
+    .logo-small {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding: 20px;
+    }
+
+    .login-left {
+      display: none;
+    }
+
+    .login-right {
+      padding: 20px;
+    }
+
+    form {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      position: static;
+      margin: 0 auto 20px;
+      width: 140px;
+    }
+
+    h1 {
+      font-size: 28px;
+      text-align: center;
+    }
+
+    p {
+      font-size: 16px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .login-button {
+      font-size: 0.85rem;
+      padding: 12px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .login-container {
+      padding: 10px;
+    }
+
+    .login-right {
+      padding: 0 20px;
+    }
+
+    .logo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 140px;
+      margin-bottom: 0;
+      margin-left: -30px;
+    }
+
+    .illustration {
+      display: none;
+      margin-top: 0;
+    }
+
+    h1 {
+      font-size: 24px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+
+    .login-button {
+      padding: 15px;
+      font-size: 0.8rem;
+    }
+  }
+}

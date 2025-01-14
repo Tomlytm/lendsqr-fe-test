@@ -1,0 +1,154 @@
+.topbar {
+  position: fixed;
+  width: 100vw;
+  display: flex;
+  // flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  // padding: 0 50px 0 30px;
+  // paddin: 0 30px;
+  
+  height: 80px;
+  background-color: #ffffff;
+  box-shadow: 3px 0px 20px 0px #0000000a;
+  z-index: 300;
+  &__menu {
+    display: none;
+  }
+  &__section {
+    display: flex;
+    align-items: center;
+    gap: 100px;
+  }
+  &__logo {
+    margin-left: 30px;
+    img {
+      height: 30px;
+    }
+  }
+
+  &__search {
+    display: flex;
+    align-items: center;
+    margin: 0 20px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    box-shadow: rgba(250, 250, 250, 0.1) 0px 1px 3px;
+    input {
+      padding: 0 15px;
+      border: none;
+      width: 300px;
+      border-radius: 5px 0 0 5px;
+      font-size: 1rem;
+      font-family: "Avenir Next Regular";
+      font-size: 14px;
+      &:hover {
+        color: #545f7d;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .topbar__search-icon {
+      background-color: #14c2d5;
+      border: none;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0 5px 5px 0;
+      color: #ffffff;
+      cursor: pointer;
+    }
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    margin-right: 50px;
+    .topbar__docs {
+      font-size: 1rem;
+      color: #4b5563;
+      // text-decoration: none;
+
+
+      &:hover {
+        color: #007bff;
+      }
+    }
+
+    .topbar__icon {
+      font-size: 1.2rem;
+      color: #4b5563;
+      //   margin-right: 20px;
+      cursor: pointer;
+      &:hover {
+        color: #007bff;
+      }
+    }
+
+    .topbar__profile {
+      display: flex !important;
+      align-items: center;
+      gap: 15px;
+
+      .topbar__avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        // margin-right: 10px;
+      }
+
+      .topbar__username {
+        font-size: 14px;
+        margin-top: 10px;
+        font-weight: 500;
+        color: #4b5563;
+      }
+    }
+  }
+}
+@media (max-width: 868px) {
+  .topbar {
+
+    &__logo {
+      display: none;
+      transition: .3s;
+    }
+  
+    &__docs {
+      display: none;
+      transition: .3s;
+    }
+    &__icon {
+      display: none;
+    }
+    &__profile {
+      p {
+        display: none;
+        
+      transition: .3s;
+      }
+      svg {
+        display: none;
+      }
+    }
+  
+    &__menu {
+      display: block;
+      margin-left: 30px;
+    }
+  }
+}
+
+@media (max-width: 690px) {
+  .topbar {
+    &__search {
+      display: none;
+      transition: .3s;
+    }
+  }
+  
+}
