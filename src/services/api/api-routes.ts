@@ -4,7 +4,7 @@ const createRoute = (path: string) => `${BASE_URL}${path}`;
 
 export const apiRoutes = {
   users: {
-    getStats: createRoute("/714f087e-a917-4771-aa50-6746cfac0e5c"),
-    getUsers: createRoute("/2acd43e6-bf0c-49c7-b8fa-1a0e0ce7f321"),
+    getStats: createRoute("/981756f3-f40f-468d-91bc-fd1abd0a923f"),
+    getUsers: createRoute("/3a2eb568-4bac-4710-aa6e-6d37c5d2eecb"),
   },
 };

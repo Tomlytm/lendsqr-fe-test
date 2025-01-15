@@ -93,7 +93,7 @@ const useGetStats = () => {
     queryFn: async (): Promise<Stats> => {
       const url = `${apiRoutes.users.getStats}`;
      const response = await api.get<Stats>({ url, auth: true });
-console.log(response)
+// console.log(response)
      return response
     },
   });
