@@ -53,6 +53,7 @@
       }
     }
   }
+  
 
   .table-container {
     background: #ffffff;
@@ -235,7 +236,6 @@
   }
   @media (max-width: 1168px) {
     .user-table {
-      
       th {
         .header {
           display: block;
@@ -274,10 +274,13 @@
     }
   }
   @media (max-width: 668px) {
+    .table-container {
+
     .pagination-container {
       // display: block;
       width: 100%;
       justify-content: center;
+      margin: 0 auto;
       .dropdown {
         display: none;
       }
@@ -313,6 +316,7 @@
         display: none;
       }
 
+    }
     }
   }
   @media (max-width: 480px) {
@@ -707,3 +711,21 @@
     }
   }
 }
+
+@media (max-width: 480px) {
+.users-dashboard {
+  // padding: 90px 0;
+  h3 {
+    margin-top: 90px;
+  }
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    //   justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 37px;
+  }
+}
+}
+
+
