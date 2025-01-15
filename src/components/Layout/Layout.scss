@@ -1,7 +1,7 @@
 .layout {
     display: flex;
     height: 100vh;
-    background-color: #f9fafb;
+    background-color: #fbfbfb;
 
       & > .layout__content {
         flex: 1;
@@ -11,13 +11,12 @@
         // overflow-y: auto;
         transition: .3s;
         // z-index: 1;
-        background-color: #fbfbfb;
+        // background-color: #fbfbfb;
       }
     
   }
   @media (max-width: 868px) {
-    .layout {
-      
+    .layout {     
       & > .layout__content {
       margin-top: 0;
       margin-left: 0;
@@ -28,12 +27,11 @@
   }
   
   @media (max-width: 768px) {
-    .layout {
-      
+    .layout {      
       & > .layout__content {
       margin-top: 0;
       margin-left: 0;
-      padding: 40px 20px;
+      padding: 40px 0px;
       transition: .3s;
       }
     }
