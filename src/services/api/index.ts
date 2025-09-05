@@ -1,35 +1,66 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 // services/api.ts
 import axios, { AxiosResponse } from 'axios';
-import {axiosInstance} from '../axiosConfig.ts';
+import { axiosInstance } from '../axiosConfig.ts';
 
-type Request = {
+interface ApiRequest {
   url: string;
-  body?: any;
+  body?: Record<string, unknown>;
   auth?: boolean;
+}
+
+class ApiError extends Error {
+  constructor(message: string, public status?: number) {
+    super(message);
+    this.name = 'ApiError';
+  }
+}
+
+const handleApiError = (error: unknown): never => {
+  if (axios.isAxiosError(error)) {
+    const message = error.response?.data?.message || error.message;
+    const status = error.response?.status;
+    throw new ApiError(message, status);
+  }
+  throw new ApiError('An unexpected error occurred');
 };
 
-const del = async <T>({ url, body: data }: Request): Promise<T> => {
-  const response: AxiosResponse<T> = await axiosInstance.delete(url, { data });
-  return response.data;
+const del = async <T>({ url, body: data }: ApiRequest): Promise<T> => {
+  try {
+    const response: AxiosResponse<T> = await axiosInstance.delete(url, { data });
+    return response.data;
+  } catch (error) {
+    return handleApiError(error);
+  }
 };
 
-const get = async <T>({ url, auth = true }: Request): Promise<T> => {
-  const response: AxiosResponse<T> = await (auth
-    ? axiosInstance.get(url)
-    : axios.get(url)); 
-  return response.data;
+const get = async <T>({ url, auth = true }: ApiRequest): Promise<T> => {
+  try {
+    const response: AxiosResponse<T> = await (auth
+      ? axiosInstance.get(url)
+      : axios.get(url));
+    return response.data;
+  } catch (error) {
+    return handleApiError(error);
+  }
 };
 
-const post = async <T>({ url, body, auth = true }: Request): Promise<T> => {
-  const response: AxiosResponse<T> = await axiosInstance.post(url, body); 
-  return response.data;
+const post = async <T>({ url, body }: ApiRequest): Promise<T> => {
+  try {
+    const response: AxiosResponse<T> = await axiosInstance.post(url, body);
+    return response.data;
+  } catch (error) {
+    return handleApiError(error);
+  }
 };
 
 
-const put = async <T>({ url, body }: Request): Promise<T> => {
-  const response: AxiosResponse<T> = await axiosInstance.put(url, body);
-  return response.data;
+const put = async <T>({ url, body }: ApiRequest): Promise<T> => {
+  try {
+    const response: AxiosResponse<T> = await axiosInstance.put(url, body);
+    return response.data;
+  } catch (error) {
+    return handleApiError(error);
+  }
 };
 
 const api = {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../User.scss';
-import StarRatings from 'react-star-ratings';
+import StarRating from '../../../StarRating/StarRating.tsx';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getLocalStorage } from '../../../../services/helper.ts';
 import { User } from '../../../../types/user.ts';
@@ -31,7 +31,7 @@ const UserDetails: React.FC = () => {
     return (
         <div className="user-details">
             {/* Header */}
-            <button onClick={handleBack} className="user-details__back"><Back/>
+            <button onClick={handleBack} className="user-details__back"><Back />
                 Back to Users</button>
             <header className="user-details__header">
                 <h3>User Details</h3>
@@ -61,17 +61,14 @@ const UserDetails: React.FC = () => {
 
                                     <div className="user-card__rating">
                                         <h6>User's Tier</h6>
-                                        <p>
-                                            <StarRatings
-                                                rating={Number(user?.tier)}
-                                                starRatedColor="gold"
-                                                numberOfStars={3}
-                                                name="rating"
-                                                starDimension="15px"
-                                                starSpacing="2px"
-                                                isSelectable={false}
-                                            />
-                                        </p>
+
+                                        <StarRating
+                                            rating={Number(user?.tier) || 0}
+                                            maxStars={3}
+                                            size="15px"
+                                            color="#E9B200"
+                                        />
+
 
                                     </div>
                                     <svg width="1" height="80" viewBox="0 0 1 80" fill="none" xmlns="http://www.w3.org/2000/svg">

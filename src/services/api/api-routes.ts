@@ -1,10 +1,10 @@
-const BASE_URL = "v3";
+const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const createRoute = (path: string) => `${BASE_URL}${path}`;
 
 export const apiRoutes = {
   users: {
-    getStats: createRoute("/981756f3-f40f-468d-91bc-fd1abd0a923f"),
-    getUsers: createRoute("/3a2eb568-4bac-4710-aa6e-6d37c5d2eecb"),
+    getStats: createRoute("/407b-277a-40ab-90b0"),
+    getUsers: createRoute("/92e3-120e-4f41-9f45"),
   },
 };

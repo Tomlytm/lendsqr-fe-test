@@ -16,34 +16,54 @@ interface FilterFormProps {
   users: User[] | undefined;
 }
 
+const STATUS_OPTIONS = [
+  { value: "", label: "Select" },
+  { value: "Active", label: "Active" },
+  { value: "Inactive", label: "Inactive" },
+  { value: "Pending", label: "Pending" },
+  { value: "Blacklisted", label: "Blacklisted" },
+] as const;
+
 const FilterForm: React.FC<FilterFormProps> = ({ onFilterSubmit, handleReset, users }) => {
-  const [filters, setFilters] = useState<UserFilters>({
-    organization: '',
-    username: '',
-    email: '',
-    phoneNumber: '',
-    date: '',
-    status: '',
-  });
-  const [organizations, setOrganizations] = useState<String[]>([]);
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFilters((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-  const handleResett = () => {
-    handleReset();
-    setFilters({
+  const getInitialFilters = (): UserFilters => {
+    const savedFilters = localStorage.getItem('userFilters');
+    if (savedFilters) {
+      return JSON.parse(savedFilters);
+    }
+    return {
       organization: '',
       username: '',
       email: '',
       phoneNumber: '',
       date: '',
       status: '',
-    })
-  }
+    };
+  };
+
+  const [filters, setFilters] = useState<UserFilters>(getInitialFilters());
+  const [organizations, setOrganizations] = useState<string[]>([]);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    const newFilters = {
+      ...filters,
+      [name]: value,
+    };
+    setFilters(newFilters);
+    localStorage.setItem('userFilters', JSON.stringify(newFilters));
+  };
+  const handleResetForm = () => {
+    handleReset();
+    const resetFilters = {
+      organization: '',
+      username: '',
+      email: '',
+      phoneNumber: '',
+      date: '',
+      status: '',
+    };
+    setFilters(resetFilters);
+    localStorage.removeItem('userFilters');
+  };
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onFilterSubmit(filters);
@@ -56,7 +76,7 @@ const FilterForm: React.FC<FilterFormProps> = ({ onFilterSubmit, handleReset, us
       setOrganizations(allOrganizations)
     }
 
-  }, [])
+  }, [users])
 
   return (
     <form className="filterForm" onSubmit={handleSubmit}>
@@ -96,16 +116,16 @@ const FilterForm: React.FC<FilterFormProps> = ({ onFilterSubmit, handleReset, us
       <div className="formGroup">
         <label htmlFor="status">Status</label>
         <select id="status" name="status" value={filters.status} onChange={handleChange}>
-          <option value="">Select</option>
-          <option value="Active">Active</option>
-          <option value="Inactive">Inactive</option>
-          <option value="Pending">Pending</option>
-          <option value="Blacklisted">Blacklisted</option>
+          {STATUS_OPTIONS.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
         </select>
       </div>
 
       <div className="buttonGroup">
-        <button type="reset" onClick={handleResett} className="resetButton">Reset</button>
+        <button type="reset" onClick={handleResetForm} className="resetButton">Reset</button>
         <button type="submit" className="filterButton">Filter</button>
       </div>
     </form>

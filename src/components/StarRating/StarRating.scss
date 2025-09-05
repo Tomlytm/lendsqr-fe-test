@@ -1,0 +1,13 @@
+.star-rating {
+  display: inline-flex;
+  // align-items: center;
+  gap: 2px;
+  
+  .star {
+    display: inline-block;
+    transition: all 0.2s ease;
+    line-height: 1;
+    position: relative;
+    
+  }
+}
