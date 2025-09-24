@@ -7,7 +7,8 @@
         flex: 1;
         margin-top: 80px;
         margin-left: 250px;
-        padding: 41px 55px;
+        padding: 41px 45px;
+        overflow-x: auto;
         // overflow-y: auto;
         transition: .3s;
         // z-index: 1;
@@ -20,7 +21,7 @@
       & > .layout__content {
       margin-top: 0;
       margin-left: 0;
-      padding: 40p 25px;
+      padding: 40px 25px;
       transition: .3s;
       }
     }
