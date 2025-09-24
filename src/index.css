@@ -30,6 +30,7 @@
 
 ::-webkit-scrollbar {
   width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -52,6 +53,7 @@
 
 body {
   margin: 0;
+  /* background-color: #fbfbfb; */
   font-family: "Avenir Next Regular", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -67,13 +69,47 @@ body {
 }
 .popover {
   border: none !important;
-  z-index: 5;
+  z-index: 1050;
+  position: absolute !important;
+  max-width: none !important;
+  transform-origin: top left !important;
+  pointer-events: auto !important;
 }
+
+/* Remove any forced scrolling behavior on body */
 .popover-arrow {
   display: none !important;
 }
 .popover-body {
   padding: 0 !important;
   border: none !important;
+  max-height: none !important;
+  overflow: visible !important;
+  pointer-events: auto !important;
   /* width: 200px !important; */
+}
+
+/* Allow mouse wheel events to bubble up for scrolling */
+.popover * {
+  pointer-events: auto;
+}
+
+.popover {
+  /* Allow wheel events to bubble to document for page scrolling */
+  overscroll-behavior: none;
+}
+
+/* Hide duplicate popovers positioned at top-left corner specifically */
+.popover[style*="translate3d(0px, 8px, 0px)"] {
+  display: none !important;
+}
+
+/* Hide popovers that are truly escaped and at wrong position (duplicates) */
+.popover[data-popper-reference-hidden="true"][style*="translate3d(0px, 8px, 0px)"] {
+  display: none !important;
+}
+
+/* Keep filter popovers visible even when touching boundaries */
+.popover:not([style*="translate3d(0px, 8px, 0px)"]) {
+  display: block !important;
 }

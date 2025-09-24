@@ -4,7 +4,7 @@
   font-family: "Work Sans", serif;
   
   h3 {
-    font-size: 20px;
+    font-size: 24px;
     color: #213f7d;
     font-weight: 600;
     margin-bottom: 37px;
@@ -41,13 +41,13 @@
       }
 
       h3 {
-        font-size: 12px;
+        font-size: 14px;
         color: #6b7280;
         margin: 0;
       }
 
       p {
-        font-size: 20px;
+        font-size: 24px;
         font-weight: 600;
         margin: 0;
         color: #213f7d;
@@ -94,7 +94,7 @@
         text-transform: uppercase;
 
         .header {
-          font-size: 10px;
+          font-size: 12px;
           display: flex;
           gap: 10px;
           align-items: center;
@@ -105,7 +105,7 @@
       }
 
       td {
-        font-size: 13px;
+        font-size: 14px;
         color: #6c7c9b;
         border-bottom: 1px solid #e5e7eb;
 
@@ -113,7 +113,7 @@
           padding: 5px 10px;
           border-radius: 100px;
           text-transform: capitalize;
-          font-size: 11px;
+          font-size: 14px;
           font-weight: 500;
 
           &.active {
@@ -139,10 +139,36 @@
       }
       
       td.col-5 {
-        font-size: 11px;
+        font-size: 14px;
       }
-      th.col-4 {
-        font-size: 9px;
+      th.col-3, td.col-3 {
+        // width: 15%;
+        // max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      
+      th.col-4, td.col-4 {
+        font-size: 14px;
+        width: 22%;
+        max-width: 220px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      
+      th.col-5, td.col-5 {
+        width: 18%;
+        min-width: 160px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      
+      th.col-6, td.col-6 {
+        width: 10%;
+        max-width: 100px;
       }
     }
     .menu-button {
@@ -623,18 +649,18 @@
 
 .user-details {
   font-family: "Work Sans", serif;
-  padding: 25px 0;
+  padding: 25px 0 25px 25px;
   &__back {
     display: flex;
     align-items: center;
     margin-left: -5px;
     gap: 10px;
-    font-size: 15px;
+    font-size: 16px;
     border: none;
     font-family: "Avenir Next Regular";
     background: transparent;
     color: #545f7d;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     cursor: pointer;
     @media (max-width: 870px) {
       margin-top: 50px;
@@ -646,6 +672,7 @@
     align-items: center;
     margin-bottom: 20px;
     color: #213f7d;
+    font-size: 24px;
     @media (max-width: 709px) {
       margin-top: 40px;
       display: block;
@@ -764,14 +791,14 @@
             margin: 0;
             padding: 0px 20px;
             h2 {
-              font-size: 20px;
+              font-size: 22px;
               color: #213f7d;
               font-weight: 500;
             }
             h6 {
               color: #545f7d;
               text-align: center;
-              font-size: 12px;
+              font-size: 14px;
               font-weight: 500;
               @media (max-width: 709px) {
                 text-align: left;
@@ -785,7 +812,7 @@
             }
 
             h3 {
-              font-size: 20px;
+              font-size: 22px;
               font-family: "Work Sans", serif;
               font-weight: 500;
             }
@@ -802,7 +829,7 @@
           background: transparent;
           border: none;
           font-family: "Avenir Next Regular";
-          font-size: 15px;
+          font-size: 16px;
           cursor: pointer;
 
           @media (max-width: 1169px) {
@@ -832,7 +859,7 @@
       box-shadow: 3px 5px 20px 0px #0000000a;
       border-radius: 4px;
       h3 {
-        font-size: 14px;
+        font-size: 16px;
         color: #213f7d;
         font-weight: 600;
         margin-bottom: 25px;
@@ -844,14 +871,14 @@
         color: #545f7d;
         span {
           text-transform: uppercase;
-          font-size: 11px;
+          font-size: 12px;
           // font-weight: bold;
           display: block;
           margin-bottom: 10px;
         }
 
         p {
-          font-size: 14px;
+          font-size: 16px;
           font-weight: 500;
           margin: 0;
         }
@@ -928,7 +955,7 @@
     display: flex;
     gap: 10px;
     cursor: pointer;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
     margin-bottom: 15px;
   }

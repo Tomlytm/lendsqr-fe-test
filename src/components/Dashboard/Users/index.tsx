@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./User.scss";
-import { Popover, OverlayTrigger, CloseButton } from "react-bootstrap";
+import { Popover, OverlayTrigger } from "react-bootstrap";
 import FilterForm from "../../Filter/FilterForm.tsx";
 import { ActionMenu, ActivateUser, ActiveUsers, BlacklistUser, EmptyState, Filter, LoanUsers, Next, Previous, SavingsUsers, Users, ViewUser } from "../DashboardIcons.tsx";
 import { useGetStats, useGetUsers } from "../../../services/hooks/user-manager/index.ts";
@@ -9,6 +9,23 @@ import { useNavigate } from 'react-router-dom';
 import { saveLocalStorage } from "../../../services/helper.ts";
 import { User, UserFilters } from "../../../types/user.ts";
 import UserStatus from "../../UserStatus/UserStatus.tsx";
+
+// Utility function to format date
+const formatDate = (dateString: string): string => {
+  const date = new Date(dateString);
+  if (isNaN(date.getTime())) {
+    return dateString; // Return original if invalid date
+  }
+  
+  return date.toLocaleString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true
+  });
+};
 const USERS_PER_PAGE = 10;
 
 const TABLE_HEADERS = [
@@ -52,6 +69,28 @@ const UsersDashboard: React.FC = () => {
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const [filters, setFilters] = useState<UserFilters>(getInitialFilters());
   const [pageNumber, setPageNumber] = useState(0);
+  
+  // Handle click outside to close popovers
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element;
+      const isPopoverClick = target.closest('.popover') || target.closest('[data-bs-toggle="popover"]') || target.closest('.filter') || target.closest('.menu-button');
+      
+      if (!isPopoverClick) {
+        setOpenPopover(null);
+        setPopover(null);
+      }
+    };
+
+    if (openPopover || popover) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [openPopover, popover]);
+
 
   const { usersData, loadingUsers, usersError } = useGetUsers();
   const { stats, loadingStats, statsError } = useGetStats();
@@ -171,6 +210,21 @@ const UsersDashboard: React.FC = () => {
                         trigger="click"
                         placement="bottom"
                         show={openPopover === header.name}
+                        popperConfig={{
+                          modifiers: [
+                            {
+                              name: 'preventOverflow',
+                              options: {
+                                boundary: 'clippingParents',
+                                altAxis: false,
+                              },
+                            },
+                            {
+                              name: 'flip',
+                              enabled: false,
+                            },
+                          ],
+                        }}
                         overlay={
                           <Popover id={`popover-${header.name}`}>
                             <Popover.Body>
@@ -179,18 +233,9 @@ const UsersDashboard: React.FC = () => {
                           </Popover>
                         }
                       >
-                        {openPopover === header.name ?
-                          (
-                            <div className="filter" onClick={() => handleIconClick(header.name)}>
-                              <CloseButton />
-                            </div>
-                          ) :
-                          (
-                            <div className="filter" onClick={() => handleIconClick(header.name)}>
-                              <Filter />
-                            </div>
-                          )
-                        }
+                        <div className="filter" onClick={() => handleIconClick(header.name)}>
+                          <Filter />
+                        </div>
                       </OverlayTrigger>
                     </div>
                   </th>
@@ -206,11 +251,9 @@ const UsersDashboard: React.FC = () => {
                     <td className="col-2">{user.personalInformation.username}</td>
                     <td className="col-3">{user.personalInformation.email}</td>
                     <td className="col-4">{user.personalInformation.phoneNumber}</td>
-                    <td className="col-5">{user.dateJoined}</td>
+                    <td className="col-5">{formatDate(user.dateJoined)}</td>
                     <td className="col-6">
-                      <div style={{ justifyContent: 'center', display: 'flex' }}>
-                        <UserStatus status={user.status} />
-                      </div>
+                      <UserStatus status={user.status} />
                     </td>
                     <td className="menu">
                       <OverlayTrigger
@@ -232,16 +275,9 @@ const UsersDashboard: React.FC = () => {
                           </Popover>
                         }
                       >
-                        {popover === user.id ? (
-                          <button onClick={() => handleMenuClick(user.id)} title="options" className="menu-button">
-                            <CloseButton />
-                          </button>
-                        ) : (
-                          <button onClick={() => handleMenuClick(user.id)} title="options" className="menu-button">
-                            <ActionMenu />
-                          </button>
-                        )
-                        }
+                        <button onClick={() => handleMenuClick(user.id)} title="options" className="menu-button">
+                          <ActionMenu />
+                        </button>
                       </OverlayTrigger>
                     </td>
                   </tr>))
@@ -269,6 +305,21 @@ const UsersDashboard: React.FC = () => {
             trigger="click"
             placement="bottom"
             show={openPopover === 'mobile-filter'}
+            popperConfig={{
+              modifiers: [
+                {
+                  name: 'preventOverflow',
+                  options: {
+                    boundary: 'clippingParents',
+                    altAxis: false,
+                  },
+                },
+                {
+                  name: 'flip',
+                  enabled: false,
+                },
+              ],
+            }}
             overlay={
               <Popover id="popover-mobile-filter">
                 <Popover.Body>
@@ -334,7 +385,7 @@ const UsersDashboard: React.FC = () => {
                     <span className="org-label">{user.organization}</span>
                   </div>
                   <div className="date-info">
-                    <span className="date-label">Joined {user.dateJoined}</span>
+                    <span className="date-label">Joined {formatDate(user.dateJoined)}</span>
                   </div>
                 </div>
               </div>
